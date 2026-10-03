@@ -52,8 +52,8 @@ h1{font-size:24px;color:#2c3e50;margin:10px 0}
 .cmd-btn:active{transform:translateY(3px);box-shadow:0 2px 0 #2c5aa0}
 .cmd-btn.up{background:#4a90e2;box-shadow:0 5px 0 #2c5aa0;grid-column:3;grid-row:1}
 .cmd-btn.down{background:#e74c3c;box-shadow:0 5px 0 #c0392b;grid-column:3;grid-row:3}
-.cmd-btn.left{background:#27ae60;box-shadow:0 5px 0 #1e8449;grid-column:1;grid-row:2}
-.cmd-btn.right{background:#f39c12;box-shadow:0 5px 0 #b87e0e;grid-column:3;grid-row:2}
+.cmd-btn.left{background:#27ae60;box-shadow:0 5px 0 #1e8449;grid-column:3;grid-row:2}
+.cmd-btn.right{background:#f39c12;box-shadow:0 5px 0 #b87e0e;grid-column:1;grid-row:2}
 .cmd-btn.repeat{background:#9b59b6;box-shadow:0 5px 0 #7d3c98;padding:14px 20px;font-size:22px}
 .cmd-btn.ifCarrot{background:#16a085;box-shadow:0 5px 0 #0e6655;padding:14px 20px;font-size:20px}
 .cmd-btn.ifWall{background:#e67e22;box-shadow:0 5px 0 #b35a0a;padding:14px 20px;font-size:20px}
@@ -188,11 +188,11 @@ h1{font-size:24px;color:#2c3e50;margin:10px 0}
   </div>
   <div class="controls">
     <div class="dpad">
-      <button class="cmd-btn up" onclick="addCommand('up')">⬆️</button>
-      <button class="cmd-btn left" onclick="addCommand('left')">⬅️</button>
-      <button class="cmd-btn right" onclick="addCommand('right')">➡️</button>
-      <button class="cmd-btn down" onclick="addCommand('down')">⬇️</button>
-    </div>
+  <button class="cmd-btn up" onclick="addCommand('up')">⬆️</button>
+  <button class="cmd-btn right" onclick="addCommand('right')">➡️</button>
+  <button class="cmd-btn left" onclick="addCommand('left')">⬅️</button>
+  <button class="cmd-btn down" onclick="addCommand('down')">⬇️</button>
+</div>
     <div class="palette">
       <button class="cmd-btn repeat" onclick="addRepeat(2)">🔁2</button>
       <button class="cmd-btn repeat" onclick="addRepeat(3)">🔁3</button>
