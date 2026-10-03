@@ -61,9 +61,11 @@ h1{font-size:22px;color:#2c3e50;margin:8px 0}
 
 /* صف الأسهم الأربعة */
 .arrows-row{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:6px;width:220px;height:220px;margin:0 auto}
-.arrow-btn{background:transparent;border:none;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;transition:transform .15s}
+.arrow-btn{background:transparent;border:none;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;transition:transform .15s;filter:drop-shadow(0 4px 6px rgba(74,144,226,.2))}
+.arrow-btn:active .arrow-icon{transform:scale(.85)}
 .arrow-btn:active{transform:scale(.85)}
-.arrow-btn .arrow-icon{font-size:52px;line-height:1;filter:drop-shadow(0 2px 3px rgba(0,0,0,.15));opacity:.9;transition:all .15s}
+.arrow-btn .arrow-icon{font-size:64px;line-height:1;filter:drop-shadow(0 3px 5px rgba(74,144,226,.3));opacity:1;transition:all .2s;color:#4a90e2}
+.arrow-btn .arrow-icon:hover{transform:scale(1.15)}
 .arrow-btn:hover .arrow-icon{opacity:1;transform:scale(1.1)}
 .arrow-btn.up{grid-column:2;grid-row:1}
 .arrow-btn.down{grid-column:2;grid-row:3}
@@ -198,27 +200,27 @@ h1{font-size:22px;color:#2c3e50;margin:8px 0}
   <div class="controls-panel">
 
     <div class="arrows-row">
-      <button class="arrow-btn up" onclick="addCommand('up')">
-        <span class="help-q" onclick="event.stopPropagation(); showCode(this, 'up()')">؟</span>
-        <span class="arrow-icon">⬆️</span>
-        <span class="code-popup">up()</span>
-      </button>
-      <button class="arrow-btn left" onclick="addCommand('left')">
-        <span class="help-q" onclick="event.stopPropagation(); showCode(this, 'left()')">؟</span>
-        <span class="arrow-icon">⬅️</span>
-        <span class="code-popup">left()</span>
-      </button>
-      <button class="arrow-btn right" onclick="addCommand('right')">
-        <span class="help-q" onclick="event.stopPropagation(); showCode(this, 'right()')">؟</span>
-        <span class="arrow-icon">➡️</span>
-        <span class="code-popup">right()</span>
-      </button>
-      <button class="arrow-btn down" onclick="addCommand('down')">
-        <span class="help-q" onclick="event.stopPropagation(); showCode(this, 'down()')">؟</span>
-        <span class="arrow-icon">⬇️</span>
-        <span class="code-popup">down()</span>
-      </button>
-    </div>
+  <button class="arrow-btn up" onclick="addCommand('up')">
+    <span class="help-q" onclick="event.stopPropagation(); showCode(this, 'up()')">؟</span>
+    <span class="arrow-icon">⬆️</span>
+    <span class="code-popup">up()</span>
+  </button>
+  <button class="arrow-btn right" onclick="addCommand('right')">
+    <span class="help-q" onclick="event.stopPropagation(); showCode(this, 'right()')">؟</span>
+    <span class="arrow-icon">➡️</span>
+    <span class="code-popup">right()</span>
+  </button>
+  <button class="arrow-btn left" onclick="addCommand('left')">
+    <span class="help-q" onclick="event.stopPropagation(); showCode(this, 'left()')">؟</span>
+    <span class="arrow-icon">⬅️</span>
+    <span class="code-popup">left()</span>
+  </button>
+  <button class="arrow-btn down" onclick="addCommand('down')">
+    <span class="help-q" onclick="event.stopPropagation(); showCode(this, 'down()')">؟</span>
+    <span class="arrow-icon">⬇️</span>
+    <span class="code-popup">down()</span>
+  </button>
+</div>>
 
     <div class="extra-row">
       <button class="extra-btn repeat" onclick="addRepeat(2)">🔁2</button>
@@ -659,9 +661,9 @@ function executeCommand(type) {
   if (type === 'up' || type === 'down' || type === 'left' || type === 'right') {
     let newDir, ddx = 0, ddy = 0;
     if (type === 'right') { newDir = 0; ddx = 1; }
-    else if (type === 'down') { newDir = 1; ddy = 1; }
-    else if (type === 'left') { newDir = 2; ddx = -1; }
-    else if (type === 'up') { newDir = 3; ddy = -1; }
+else if (type === 'down') { newDir = 1; ddy = 1; }
+else if (type === 'left') { newDir = 2; ddx = -1; }
+else if (type === 'up') { newDir = 3; ddy = -1; }
     rabbit.dir = newDir;
     const nx = rabbit.x + ddx, ny = rabbit.y + ddy;
     if (nx < 0 || nx > 4 || ny < 0 || ny > 4) { sfxOutOfBounds(); shakeRabbit(); feedbackEl.textContent = '🙈 خارج اللوحة!'; return 'fail'; }
