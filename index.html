@@ -3,207 +3,546 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎓 صالة الألعاب التعليمية</title>
+<title>🗺️ رحلة المبرمج الصغير</title>
 <style>
 *{box-sizing:border-box;user-select:none;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
 body{
   font-family:'Segoe UI',Tahoma,sans-serif;
-  background:linear-gradient(160deg,#667eea 0%,#764ba2 50%,#f093fb 100%);
+  background:linear-gradient(180deg,#87CEEB 0%,#B0E0E6 30%,#98FB98 70%,#228B22 100%);
   min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
   padding:20px;
   overflow-x:hidden;
   position:relative;
 }
-.bg-star{
+.cloud{
   position:fixed;
-  color:rgba(255,255,255,.4);
-  font-size:20px;
-  animation:float 6s ease-in-out infinite;
+  font-size:60px;
+  opacity:.5;
+  animation:cloudMove 40s linear infinite;
   pointer-events:none;
   z-index:0;
 }
-@keyframes float{
-  0%,100%{transform:translateY(0) rotate(0)}
-  50%{transform:translateY(-20px) rotate(180deg)}
+@keyframes cloudMove{
+  from{transform:translateX(-100px)}
+  to{transform:translateX(110vw)}
 }
-.container{
-  max-width:900px;
-  width:100%;
-  position:relative;
-  z-index:1;
+.container{max-width:900px;margin:0 auto;position:relative;z-index:1}
+
+.header{
+  background:linear-gradient(135deg,#FFD700,#FFA500);
+  border-radius:30px;
+  padding:24px;
   text-align:center;
+  box-shadow:0 12px 30px rgba(255,165,0,.4);
+  margin-bottom:24px;
+  border:5px solid #fff;
 }
-.title{
+.header h1{
   color:#fff;
-  font-size:clamp(28px,6vw,42px);
+  font-size:clamp(24px,5vw,36px);
   font-weight:900;
+  text-shadow:3px 3px 0 rgba(0,0,0,.2);
   margin-bottom:8px;
-  text-shadow:0 4px 12px rgba(0,0,0,.3);
-  animation:bounceIn .8s ease;
 }
-@keyframes bounceIn{
-  0%{opacity:0;transform:scale(.3)}
-  60%{transform:scale(1.1)}
-  100%{opacity:1;transform:scale(1)}
-}
-.subtitle{
-  color:rgba(255,255,255,.95);
+.header p{
+  color:#fff;
   font-size:clamp(14px,3vw,18px);
-  margin-bottom:30px;
-  font-weight:600;
-  text-shadow:0 2px 6px rgba(0,0,0,.2);
+  font-weight:700;
+  opacity:.95;
 }
-.games-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
-  padding:10px;
-}
-.game-card{
+.progress-pill{
   background:#fff;
-  border-radius:26px;
-  padding:28px 20px;
-  text-decoration:none;
-  color:#2c3e50;
-  box-shadow:0 15px 35px rgba(0,0,0,.25);
-  transition:all .3s ease;
-  cursor:pointer;
-  position:relative;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
+  border-radius:20px;
+  padding:12px 20px;
+  display:inline-flex;
   align-items:center;
-  gap:12px;
-  border:4px solid transparent;
+  gap:10px;
+  margin-top:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,.15);
+  font-weight:900;
+  color:#2c3e50;
+  font-size:16px;
 }
-.game-card::before{
+.progress-pill .num{
+  background:linear-gradient(135deg,#27ae60,#2ecc71);
+  color:#fff;
+  padding:4px 12px;
+  border-radius:12px;
+  font-size:14px;
+}
+
+.journey{position:relative;padding:20px 0}
+.journey::before{
   content:'';
   position:absolute;
-  top:0;left:0;right:0;
+  right:50%;
+  transform:translateX(50%);
+  top:40px;
+  bottom:40px;
+  width:8px;
+  background:repeating-linear-gradient(180deg,#8B4513 0,#8B4513 12px,transparent 12px,transparent 20px);
+  border-radius:4px;
+  z-index:0;
+}
+.station{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  margin-bottom:30px;
+  position:relative;
+  z-index:1;
+}
+.station:nth-child(even){flex-direction:row-reverse}
+.station-dot{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:#fff;
+  border:6px solid #ccc;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:44px;
+  position:relative;
+  flex-shrink:0;
+  box-shadow:0 6px 18px rgba(0,0,0,.2);
+  transition:all .3s;
+}
+.station-dot.locked{
+  background:#ddd;
+  border-color:#aaa;
+  filter:grayscale(.8);
+  opacity:.6;
+}
+.station-dot.unlocked{
+  border-color:#27ae60;
+  background:linear-gradient(135deg,#d5f5e3,#a9ebc4);
+  animation:pulseGreen 2s ease-in-out infinite;
+  cursor:pointer;
+}
+.station-dot.current{
+  border-color:#f39c12;
+  background:linear-gradient(135deg,#fff5e1,#ffe0b2);
+  animation:pulseOrange 1.5s ease-in-out infinite;
+  cursor:pointer;
+}
+@keyframes pulseGreen{
+  0%,100%{transform:scale(1);box-shadow:0 6px 18px rgba(46,204,113,.4)}
+  50%{transform:scale(1.08);box-shadow:0 8px 24px rgba(46,204,113,.7)}
+}
+@keyframes pulseOrange{
+  0%,100%{transform:scale(1.1);box-shadow:0 6px 20px rgba(243,156,18,.5)}
+  50%{transform:scale(1.2);box-shadow:0 10px 28px rgba(243,156,18,.9)}
+}
+.station-num{
+  position:absolute;
+  top:-8px;
+  right:-8px;
+  background:#fff;
+  border:3px solid #f39c12;
+  color:#f39c12;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:14px;
+  box-shadow:0 3px 8px rgba(0,0,0,.2);
+}
+.station-card{
+  flex:1;
+  background:#fff;
+  border-radius:20px;
+  padding:18px;
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+  border:4px solid transparent;
+  transition:all .3s;
+  position:relative;
+  overflow:hidden;
+}
+.station-card::before{
+  content:'';
+  position:absolute;
+  top:0;right:0;left:0;
   height:6px;
-  background:var(--accent,#4a90e2);
-  border-radius:26px 26px 0 0;
+  background:var(--color,#4a90e2);
 }
-.game-card:hover,.game-card:active{
-  transform:translateY(-8px) scale(1.03);
-  box-shadow:0 22px 45px rgba(0,0,0,.35);
-  border-color:var(--accent,#4a90e2);
+.station-card.locked{background:#f0f2f5;opacity:.7}
+.station-card.unlocked{border-color:#27ae60;cursor:pointer}
+.station-card.unlocked:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 28px rgba(46,204,113,.3);
 }
-.game-emoji{
-  font-size:72px;
-  line-height:1;
-  filter:drop-shadow(0 4px 8px rgba(0,0,0,.15));
-  animation:wiggle 3s ease-in-out infinite;
+.station-card.current{
+  border-color:#f39c12;
+  box-shadow:0 8px 24px rgba(243,156,18,.35);
+  cursor:pointer;
 }
-@keyframes wiggle{
-  0%,100%{transform:rotate(-3deg) scale(1)}
-  50%{transform:rotate(3deg) scale(1.05)}
+.station-card.current:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 30px rgba(243,156,18,.5);
 }
-.game-title{
-  font-size:22px;
+.station-title{
+  font-size:20px;
   font-weight:900;
   color:#2c3e50;
-  margin-top:4px;
+  margin-bottom:6px;
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
-.game-desc{
+.station-desc{
   font-size:14px;
   color:#7f8c8d;
   font-weight:600;
   line-height:1.5;
 }
-.game-btn{
-  margin-top:6px;
-  padding:12px 32px;
-  border-radius:14px;
-  color:#fff;
-  font-size:17px;
+.station-stars{
+  margin-top:8px;
+  font-size:18px;
+  letter-spacing:2px;
+}
+.status-badge{
+  display:inline-block;
+  padding:4px 12px;
+  border-radius:20px;
+  font-size:12px;
   font-weight:900;
-  background:var(--accent,#4a90e2);
-  box-shadow:0 5px 0 rgba(0,0,0,.2);
-  transition:transform .08s;
+  margin-top:8px;
 }
-.game-card:active .game-btn{
-  transform:translateY(3px);
-  box-shadow:0 2px 0 rgba(0,0,0,.2);
+.status-badge.locked{background:#e74c3c;color:#fff}
+.status-badge.unlocked{background:#27ae60;color:#fff}
+.status-badge.current{background:#f39c12;color:#fff;animation:badgePulse 1.5s infinite}
+@keyframes badgePulse{0%,100%{opacity:1}50%{opacity:.6}}
+
+.certificate{
+  margin-top:40px;
+  background:linear-gradient(135deg,#FFD700,#FFA500,#FFD700);
+  border-radius:30px;
+  padding:30px;
+  text-align:center;
+  box-shadow:0 15px 40px rgba(255,165,0,.5);
+  border:6px solid #fff;
+  position:relative;
+  overflow:hidden;
+  opacity:.5;
+  transition:all .5s;
 }
-.card-maze{--accent:#4a90e2}
-.card-draw{--accent:#f39c12}
-.card-lesson{--accent:#27ae60}
-.footer{
-  margin-top:30px;
-  color:rgba(255,255,255,.85);
-  font-size:14px;
-  font-weight:600;
-  text-shadow:0 2px 4px rgba(0,0,0,.2);
+.certificate.unlocked{
+  opacity:1;
+  animation:certGlow 2s ease-in-out infinite;
+  cursor:pointer;
 }
+@keyframes certGlow{
+  0%,100%{box-shadow:0 15px 40px rgba(255,165,0,.5)}
+  50%{box-shadow:0 15px 60px rgba(255,215,0,.9)}
+}
+.certificate::before{
+  content:'⭐';
+  position:absolute;
+  font-size:200px;
+  opacity:.1;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+}
+.certificate h2{
+  color:#fff;
+  font-size:clamp(22px,5vw,32px);
+  font-weight:900;
+  text-shadow:3px 3px 0 rgba(0,0,0,.2);
+  position:relative;
+  z-index:1;
+}
+.certificate p{
+  color:#fff;
+  font-size:16px;
+  font-weight:700;
+  margin-top:8px;
+  position:relative;
+  z-index:1;
+}
+.certificate .lock{
+  font-size:60px;
+  margin:12px 0;
+  position:relative;
+  z-index:1;
+}
+.certificate.unlocked .lock::before{content:'🏆'}
+
+.reset-btn{
+  display:block;
+  margin:30px auto 10px;
+  background:#e74c3c;
+  color:#fff;
+  border:none;
+  border-radius:20px;
+  padding:12px 30px;
+  font-size:16px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 5px 0 #c0392b;
+  font-family:inherit;
+}
+.reset-btn:active{transform:translateY(3px);box-shadow:0 2px 0 #c0392b}
+
 @media (max-width:600px){
-  body{padding:16px}
-  .games-grid{gap:14px;grid-template-columns:1fr}
-  .game-card{padding:22px 16px;flex-direction:row;text-align:right;gap:16px;align-items:center}
-  .game-emoji{font-size:56px;flex-shrink:0}
-  .game-info{flex:1;display:flex;flex-direction:column;gap:4px}
-  .game-title{font-size:19px;text-align:right}
-  .game-desc{font-size:13px;text-align:right}
-  .game-btn{padding:10px 22px;font-size:15px;align-self:flex-end;margin-top:4px}
+  .station-dot{width:70px;height:70px;font-size:34px;border-width:4px}
+  .station-num{width:26px;height:26px;font-size:12px}
+  .station-card{padding:14px}
+  .station-title{font-size:16px}
+  .station-desc{font-size:12px}
+  .journey::before{right:35px;transform:none}
 }
+
+/* نافذة "قريباً" */
+.coming-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.85);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  padding:20px;
+  animation:fadeIn .3s;
+}
+.coming-overlay.open{display:flex}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.coming-card{
+  background:#fff;
+  border-radius:25px;
+  padding:30px 40px;
+  text-align:center;
+  max-width:400px;
+  box-shadow:0 20px 50px rgba(0,0,0,.5);
+}
+.coming-card .big{font-size:70px;margin-bottom:10px}
+.coming-card h3{font-size:24px;color:#2c3e50;margin-bottom:10px;font-weight:900}
+.coming-card p{font-size:16px;color:#7f8c8d;line-height:1.6;margin-bottom:20px}
+.coming-card button{
+  background:#4a90e2;
+  color:#fff;
+  border:none;
+  border-radius:16px;
+  padding:12px 30px;
+  font-size:16px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 5px 0 #2c5aa0;
+  font-family:inherit;
+}
+.coming-card button:active{transform:translateY(3px);box-shadow:0 2px 0 #2c5aa0}
 </style>
-</head><body>
+</head>
+<body>
 
 <div class="container">
-  <div class="title">🎓 صالة الألعاب التعليمية</div>
-  <div class="subtitle">اختر لعبة وابدأ التعلم! 🚀</div>
 
-  <div class="games-grid">
-
-    <a href="maze.html" class="game-card card-maze">
-      <div class="game-emoji">🐰</div>
-      <div class="game-info">
-        <div class="game-title">لعبة المتاهة</div>
-        <div class="game-desc">وصل الحيوان للأكل بتاعه بالأسهم</div>
-      </div>
-      <div class="game-btn">▶️ العب</div>
-    </a>
-
-    <a href="maze.html" class="game-card card-maze">>
-      <div class="game-emoji">🎨</div>
-      <div class="game-info">
-        <div class="game-title">القط الرسام</div>
-        <div class="game-desc">ارسم أشكال بالكود</div>
-      </div>
-      <div class="game-btn">▶️ العب</div>
-    </a>
-
-    <a href="draw.html" class="game-card card-draw">
-      <div class="game-emoji">📚</div>
-      <div class="game-info">
-        <div class="game-title">الدرس 1</div>
-        <div class="game-desc">يعني إيه "أمر"؟</div>
-      </div>
-      <div class="game-btn">🎓 اتعلم</div>
-    </a>
-
+  <div class="header">
+    <h1>🗺️ رحلة المبرمج الصغير</h1>
+    <p>اتعلم البرمجة خطوة بخطوة! 🚀</p>
+    <div class="progress-pill">
+      <span>🏆 تقدمك:</span>
+      <span class="num" id="progressNum">0 / 7</span>
+    </div>
   </div>
 
-  <div class="footer">🌟 العب واتعلم البرمجة 🌟</div>
+  <div class="journey" id="journey"></div>
+
+  <div class="certificate" id="certificate" onclick="showCertificate()">
+    <div class="lock">🔒</div>
+    <h2>🏆 شهادة المبرمج الصغير</h2>
+    <p>خلّص كل المحطات عشان تاخد الشهادة!</p>
+  </div>
+
+  <button class="reset-btn" onclick="resetJourney()">🔄 ابدأ الرحلة من الأول</button>
+
 </div>
+
+<!-- نافذة "قريباً" -->
+<div class="coming-overlay" id="comingOverlay">
+  <div class="coming-card">
+    <div class="big" id="comingEmoji">🚧</div>
+    <h3 id="comingTitle">قريباً!</h3>
+    <p id="comingDesc">المحطة دي بتتبنى حالياً. هتلاقيها قريب جداً! ✨</p>
+    <button onclick="closeComing()">تمام، هرجع بعدين</button>
+  </div>
+</div>
+
 <script>
-(function(){
-  const stars = ['⭐','✨','🌟','💫'];
-  for(let i=0;i<15;i++){
-    const s = document.createElement('div');
-    s.className = 'bg-star';
-    s.textContent = stars[Math.floor(Math.random()*stars.length)];
-    s.style.left = Math.random()*100 + 'vw';
-    s.style.top = Math.random()*100 + 'vh';
-    s.style.fontSize = (15+Math.random()*20) + 'px';
-    s.style.animationDelay = Math.random()*3 + 's';
-    document.body.appendChild(s);
+const stations = [
+  { id: 1, emoji: '🥚', title: 'الأمر', desc: 'يعني إيه "أمر"؟', color: '#4a90e2', link: 'lesson.html', ready: true },
+  { id: 2, emoji: '🐣', title: 'التسلسل', desc: 'الترتيب مهم!', color: '#f39c12', link: 'maze.html', ready: true },
+  { id: 3, emoji: '🐥', title: 'التكرار', desc: 'بدل ما تكرر، قول كرر!', color: '#9b59b6', link: 'draw.html', ready: true },
+  { id: 4, emoji: '🐤', title: 'الشرط', desc: 'لو حصل كده، اعمل كده!', color: '#e67e22', link: 'if-game.html', ready: false },
+  { id: 5, emoji: '🦅', title: 'الدالة', desc: 'اعمل وصفة مرة، استعملها كتير!', color: '#16a085', link: 'function.html', ready: false },
+  { id: 6, emoji: '🦉', title: 'المتغير', desc: 'صندوق بيسجل الأرقام', color: '#8e44ad', link: 'variable.html', ready: false },
+  { id: 7, emoji: '🐯', title: 'تصحيح الأخطاء', desc: 'لاقي الغلط وصلّحه!', color: '#c0392b', link: 'debug.html', ready: false }
+];
+
+let progress = { completed: [] };
+let userStars = {};
+
+function loadProgress() {
+  try {
+    const raw = localStorage.getItem('journeyProgress_v2');
+    if (raw) progress = JSON.parse(raw);
+    const stars = localStorage.getItem('journeyStars_v2');
+    if (stars) userStars = JSON.parse(stars);
+  } catch(e) {}
+}
+function saveProgress() {
+  try {
+    localStorage.setItem('journeyProgress_v2', JSON.stringify(progress));
+    localStorage.setItem('journeyStars_v2', JSON.stringify(userStars));
+  } catch(e) {}
+}
+function isUnlocked(id) {
+  if (id === 1) return true;
+  return progress.completed.includes(id - 1);
+}
+function isCompleted(id) {
+  return progress.completed.includes(id);
+}
+function isCurrent(id) {
+  if (isCompleted(id)) return false;
+  if (!isUnlocked(id)) return false;
+  return true;
+}
+
+function renderJourney() {
+  const j = document.getElementById('journey');
+  j.innerHTML = '';
+
+  stations.forEach(s => {
+    const unlocked = isUnlocked(s.id);
+    const completed = isCompleted(s.id);
+    const current = isCurrent(s.id);
+
+    const station = document.createElement('div');
+    station.className = 'station';
+
+    let dotClass = 'station-dot';
+    if (completed) dotClass += ' unlocked';
+    else if (current) dotClass += ' current';
+    else if (!unlocked) dotClass += ' locked';
+    else dotClass += ' unlocked';
+
+    const starsDisplay = completed ? '⭐⭐⭐' : '☆☆☆';
+
+    let badge = '';
+    if (completed) badge = '<div class="status-badge unlocked">✅ خلصتها</div>';
+    else if (current) badge = '<div class="status-badge current">👈 ابدأ هنا</div>';
+    else badge = '<div class="status-badge locked">🔒 مقفولة</div>';
+
+    station.innerHTML = `
+      <div class="${dotClass}" onclick="openStation(${s.id})">
+        <div class="station-num">${s.id}</div>
+        ${completed ? '✅' : s.emoji}
+      </div>
+      <div class="station-card ${completed ? 'unlocked' : current ? 'current' : 'locked'}"
+           style="--color:${s.color}"
+           onclick="openStation(${s.id})">
+        <div class="station-title">${s.emoji} ${s.title}</div>
+        <div class="station-desc">${s.desc}</div>
+        <div class="station-stars">${starsDisplay}</div>
+        ${badge}
+      </div>
+    `;
+    j.appendChild(station);
+  });
+
+  const allDone = progress.completed.length === stations.length;
+  const cert = document.getElementById('certificate');
+  if (allDone) {
+    cert.classList.add('unlocked');
+    cert.querySelector('.lock').textContent = '🏆';
+    cert.querySelector('h2').textContent = '🎉 مبروك! خلّصت الرحلة!';
+    cert.querySelector('p').textContent = 'إنت دلوقتي "مبرمج صغير" 🎓';
+  } else {
+    cert.classList.remove('unlocked');
+    cert.querySelector('.lock').textContent = '🔒';
+    cert.querySelector('h2').textContent = '🏆 شهادة المبرمج الصغير';
+    cert.querySelector('p').textContent = 'خلّص كل المحطات عشان تاخد الشهادة!';
   }
-})();
+
+  document.getElementById('progressNum').textContent =
+    progress.completed.length + ' / ' + stations.length;
+}
+
+function openStation(id) {
+  const s = stations.find(x => x.id === id);
+  if (!s) return;
+
+  if (!isUnlocked(id)) {
+    alert('🔒 خلّص المحطة اللي قبلها الأول!');
+    return;
+  }
+
+  if (!s.ready) {
+    document.getElementById('comingEmoji').textContent = s.emoji;
+    document.getElementById('comingTitle').textContent = s.title + ' — قريباً!';
+    document.getElementById('comingDesc').textContent = 'المحطة دي بتتبنى حالياً. هتلاقيها قريب جداً! ✨';
+    document.getElementById('comingOverlay').classList.add('open');
+    return;
+  }
+
+  window.location.href = s.link;
+}
+
+function closeComing() {
+  document.getElementById('comingOverlay').classList.remove('open');
+}
+
+function showCertificate() {
+  const allDone = progress.completed.length === stations.length;
+  if (!allDone) {
+    const remaining = stations.length - progress.completed.length;
+    alert('🔒 باقي ' + remaining + ' محطة عشان تاخد الشهادة!\n\nكمّل الرحلة! 💪');
+    return;
+  }
+  const name = prompt('🎉 مبروك! إنت مبرمج صغير رسمي!\n\nاكتب اسمك على الشهادة:', '');
+  if (name) {
+    const cert = `🏆 شهادة المبرمج الصغير 🏆
+
+الشهادة دي مقدمة إلى:
+⭐ ${name} ⭐
+
+لإتمامه "رحلة المبرمج الصغير" بنجاح!
+تعلم فيها: الأمر، التسلسل، التكرار، الشرط، الدالة، المتغير، وتصحيح الأخطاء.
+
+🎓 مبروك يا بطل! 🎓
+
+التاريخ: ${new Date().toLocaleDateString('ar-EG')}`;
+    alert(cert);
+  }
+}
+
+function resetJourney() {
+  if (confirm('متأكد؟ هيمسح كل تقدمك في الرحلة!')) {
+    progress = { completed: [] };
+    userStars = {};
+    saveProgress();
+    renderJourney();
+  }
+}
+
+function addClouds() {
+  for (let i = 0; i < 4; i++) {
+    const c = document.createElement('div');
+    c.className = 'cloud';
+    c.textContent = '☁️';
+    c.style.top = (5 + Math.random() * 30) + 'vh';
+    c.style.animationDelay = (Math.random() * 20) + 's';
+    c.style.fontSize = (40 + Math.random() * 40) + 'px';
+    document.body.appendChild(c);
+  }
+}
+
+loadProgress();
+renderJourney();
+addClouds();
 </script>
 
 </body>
