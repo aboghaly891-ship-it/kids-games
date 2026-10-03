@@ -10,120 +10,161 @@
 <style>
 *{box-sizing:border-box;user-select:none}
 body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:#f0f7ff;display:flex;flex-direction:column;align-items:center;padding:10px;min-height:100vh;overflow-x:hidden}
-h1{font-size:24px;color:#2c3e50;margin:10px 0}
-.top-bar{display:flex;align-items:center;gap:10px;background:#fff;padding:8px 16px;border-radius:20px;box-shadow:0 3px 8px rgba(0,0,0,.08);margin-bottom:10px;flex-wrap:wrap;justify-content:center}
-.top-bar .stat{font-size:16px;font-weight:bold;color:#2c3e50;display:flex;align-items:center;gap:5px}
+h1{font-size:22px;color:#2c3e50;margin:8px 0}
+.top-bar{display:flex;align-items:center;gap:8px;background:#fff;padding:6px 14px;border-radius:20px;box-shadow:0 3px 8px rgba(0,0,0,.08);margin-bottom:8px;flex-wrap:wrap;justify-content:center}
+.top-bar .stat{font-size:15px;font-weight:bold;color:#2c3e50;display:flex;align-items:center;gap:4px}
 .top-bar .stat .value{color:#f39c12}
-.small-btn{color:#fff;border:none;border-radius:12px;padding:9px 13px;font-size:13px;font-weight:bold;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,.25)}
-.small-btn:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.25)}
+.small-btn{color:#fff;border:none;border-radius:12px;padding:8px 12px;font-size:12px;font-weight:bold;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,.2)}
+.small-btn:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.2)}
 .editor-btn{background:#8e44ad;box-shadow:0 3px 0 #6c3483}
 .reset-progress-btn{background:#e74c3c;box-shadow:0 3px 0 #c0392b}
 .album-btn{background:linear-gradient(135deg,#667eea,#764ba2);box-shadow:0 3px 0 #4c3575}
-.progress-bar{display:flex;gap:6px;padding:10px 14px;background:linear-gradient(135deg,#ffffff,#f8faff);border-radius:22px;box-shadow:0 6px 20px rgba(74,144,226,.15);margin-bottom:14px;flex-wrap:wrap;justify-content:center;max-width:94vw}
-.progress-dot{width:42px;height:42px;border-radius:50%;background:#f0f2f5;display:flex;align-items:center;justify-content:center;font-size:22px;border:3px solid #dfe6ec;transition:all .3s ease;cursor:pointer;filter:grayscale(1) opacity(.4);position:relative}
-.progress-dot.done{background:linear-gradient(135deg,#d5f5e3,#a9ebc4);border-color:#27ae60;filter:none;box-shadow:0 4px 12px rgba(46,204,113,.4)}
-.progress-dot.done::after{content:'✔';position:absolute;bottom:-3px;right:-3px;background:#27ae60;color:#fff;border-radius:50%;width:16px;height:16px;font-size:10px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;font-weight:bold}
-.progress-dot.current{background:linear-gradient(135deg,#fff5e1,#ffe0b2);border-color:#f39c12;filter:none;transform:scale(1.12);animation:pulseDot 1.5s ease-in-out infinite}
-@keyframes pulseDot{0%,100%{transform:scale(1.12)}50%{transform:scale(1.28)}}
-.game-container{display:flex;flex-wrap:wrap;gap:15px;justify-content:center;width:100%;max-width:900px}
-.board-section{background:#fff;border-radius:20px;padding:15px;box-shadow:0 4px 10px rgba(0,0,0,.1);position:relative}
-.board{display:grid;grid-template-columns:repeat(5,60px);grid-template-rows:repeat(5,60px);gap:4px;background:#e0e0e0;padding:4px;border-radius:12px}
-.cell{background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:32px;position:relative}
+.progress-bar{display:flex;gap:5px;padding:8px 12px;background:#fff;border-radius:18px;box-shadow:0 4px 12px rgba(74,144,226,.12);margin-bottom:10px;flex-wrap:wrap;justify-content:center;max-width:94vw}
+.progress-dot{width:38px;height:38px;border-radius:50%;background:#f0f2f5;display:flex;align-items:center;justify-content:center;font-size:20px;border:3px solid #dfe6ec;cursor:pointer;filter:grayscale(1) opacity(.4);position:relative;transition:all .3s}
+.progress-dot.done{background:#d5f5e3;border-color:#27ae60;filter:none}
+.progress-dot.done::after{content:'✔';position:absolute;bottom:-3px;right:-3px;background:#27ae60;color:#fff;border-radius:50%;width:14px;height:14px;font-size:9px;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+.progress-dot.current{background:#fff5e1;border-color:#f39c12;filter:none;transform:scale(1.12);animation:pulseDot 1.5s infinite}
+@keyframes pulseDot{0%,100%{transform:scale(1.12)}50%{transform:scale(1.25)}}
+
+/* الحاوية الرئيسية */
+.game-wrapper{width:100%;max-width:500px;display:flex;flex-direction:column;gap:10px;align-items:center}
+
+/* قسم اللوحة */
+.board-section{background:#fff;border-radius:20px;padding:12px;box-shadow:0 4px 14px rgba(0,0,0,.08);width:100%}
+.level-info{text-align:center;margin-bottom:8px}
+.level-info h2{margin:0;font-size:17px;color:#2c3e50}
+.level-info p{margin:3px 0 0;font-size:14px;color:#7f8c8d;font-weight:bold}
+.board{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;background:#e8ecf1;padding:6px;border-radius:14px;aspect-ratio:1;max-width:320px;margin:0 auto}
+.cell{background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:clamp(20px,6vw,30px);position:relative;aspect-ratio:1}
 .cell.wall{background:#8d6e63}
 .cell.carrot{background:#fff9c4}
-.rabbit{font-size:36px;position:relative;display:flex;align-items:center;justify-content:center;z-index:2;transition:transform .2s}
+.rabbit{font-size:clamp(22px,6.5vw,32px);position:relative;display:flex;align-items:center;justify-content:center;z-index:2}
 .rabbit.jump{animation:jump .5s ease}
 .rabbit.shake{animation:shake .3s ease}
-@keyframes jump{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
-.arrow{position:absolute;top:-18px;right:-18px;font-size:24px;color:#e74c3c;z-index:3}
-.speech{position:absolute;top:-55px;right:-10px;background:#fff;border:3px solid #f39c12;border-radius:15px;padding:5px 10px;font-size:16px;font-weight:bold;color:#e67e22;white-space:nowrap;z-index:10}.controls{display:flex;flex-direction:column;gap:10px;min-width:280px}
-.palette{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
-.dpad{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:8px;max-width:290px;margin:0 auto}
-.cmd-btn{background:#4a90e2;color:#fff;border:none;border-radius:22px;padding:16px 14px;font-size:20px;font-weight:bold;cursor:pointer;box-shadow:0 6px 0 #2c5aa0;display:flex;align-items:center;justify-content:center;gap:8px;min-height:80px;transition:transform .1s;position:relative;overflow:hidden}
-.cmd-btn:active{transform:translateY(4px);box-shadow:0 2px 0 #2c5aa0}
-.cmd-btn .arrow-big{font-size:36px;line-height:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.1));opacity:.85;transition:transform .15s}
-.cmd-btn .arrow-big:hover{transform:scale(1.15);opacity:1}.cmd-btn .help-q{position:absolute;top:6px;left:8px;background:rgba(255,255,255,.95);color:#2c5aa0;border:none;border-radius:50%;width:26px;height:26px;font-size:14px;font-weight:900;cursor:pointer;box-shadow:0 2px 5px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;font-family:inherit;z-index:2;padding:0}
-.cmd-btn .help-q:active{transform:scale(.9)}
-.cmd-btn .cmd-code-popup{position:absolute;bottom:6px;left:50%;transform:translateX(-50%) translateY(20px);background:#1e2a38;color:#50fa7b;font-family:'Courier New',monospace;font-size:13px;font-weight:bold;padding:4px 10px;border-radius:8px;opacity:0;pointer-events:none;transition:all .3s;direction:ltr;white-space:nowrap;z-index:3;box-shadow:0 4px 10px rgba(0,0,0,.3)}
-.cmd-btn .cmd-code-popup.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.cmd-btn.up{background:#4a90e2;box-shadow:0 5px 0 #2c5aa0;grid-column:2;grid-row:1}
-.cmd-btn.down{background:#e74c3c;box-shadow:0 5px 0 #c0392b;grid-column:2;grid-row:3}
-.cmd-btn.left{background:#27ae60;box-shadow:0 5px 0 #1e8449;grid-column:1;grid-row:2}
-.cmd-btn.right{background:#f39c12;box-shadow:0 5px 0 #b87e0e;grid-column:3;grid-row:2}
-.cmd-btn.repeat{background:#9b59b6;box-shadow:0 5px 0 #7d3c98;padding:14px 20px;font-size:22px}
-.cmd-btn.jump{background:#16a085;box-shadow:0 5px 0 #0e6655;padding:14px 20px;font-size:22px}
-.program{background:#f8f9fa;border:3px dashed #bdc3c7;border-radius:15px;min-height:80px;padding:10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center}
-.program-item{background:#fff;border:2px solid #4a90e2;border-radius:10px;padding:8px 12px;font-size:22px;display:flex;align-items:center;gap:6px;cursor:pointer}
+@keyframes jump{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.arrow{position:absolute;top:-14px;right:-14px;font-size:18px;color:#e74c3c;z-index:3}
+.speech{position:absolute;top:-45px;right:-8px;background:#fff;border:3px solid #f39c12;border-radius:14px;padding:4px 10px;font-size:14px;font-weight:bold;color:#e67e22;white-space:nowrap;z-index:10}
+
+/* صندوق البرنامج - تحت الشبكة مباشرة */
+.program-box{background:#f8f9fa;border:3px dashed #bdc3c7;border-radius:15px;min-height:60px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;width:100%;max-width:500px}
+.program-box .empty{color:#95a5a6;font-size:13px}
+.program-item{background:#fff;border:2px solid #4a90e2;border-radius:10px;padding:6px 10px;font-size:20px;display:flex;align-items:center;gap:5px;cursor:pointer}
 .program-item.up{border-color:#4a90e2}
 .program-item.down{border-color:#e74c3c}
 .program-item.left{border-color:#27ae60}
 .program-item.right{border-color:#f39c12}
 .program-item.jump{border-color:#16a085}
-.repeat-badge{background:#9b59b6;color:#fff;border-radius:20px;padding:2px 8px;font-size:14px;font-weight:bold}
-.run-controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.run-btn{background:#2ecc71;color:#fff;border:none;border-radius:20px;padding:15px 30px;font-size:24px;font-weight:bold;cursor:pointer;box-shadow:0 5px 0 #27ae60}
-.run-btn:active{transform:translateY(2px);box-shadow:0 3px 0 #27ae60}
-.step-btn{background:#3498db;box-shadow:0 5px 0 #2980b9}
-.reset-btn{background:#e74c3c;box-shadow:0 5px 0 #c0392b}
-.level-info{text-align:center;margin-bottom:10px}
-.level-info h2{margin:5px 0;font-size:20px;color:#2c3e50}
-.level-info p{margin:5px 0;font-size:18px;color:#7f8c8d;font-weight:bold}
-.feedback{font-size:20px;font-weight:bold;color:#2ecc71;min-height:30px;text-align:center}
-.speed-control{display:flex;align-items:center;gap:5px;justify-content:center;font-size:14px}
+.repeat-badge{background:#9b59b6;color:#fff;border-radius:20px;padding:1px 7px;font-size:12px;font-weight:bold}
+  /* لوحة التحكم - تحت صندوق البرنامج */
+.controls-panel{display:flex;flex-direction:column;gap:10px;align-items:center;width:100%;max-width:500px}
+
+/* صف الأسهم الأربعة */
+.arrows-row{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:6px;width:220px;height:220px;margin:0 auto}
+.arrow-btn{background:transparent;border:none;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;transition:transform .15s}
+.arrow-btn:active{transform:scale(.85)}
+.arrow-btn .arrow-icon{font-size:52px;line-height:1;filter:drop-shadow(0 2px 3px rgba(0,0,0,.15));opacity:.9;transition:all .15s}
+.arrow-btn:hover .arrow-icon{opacity:1;transform:scale(1.1)}
+.arrow-btn.up{grid-column:2;grid-row:1}
+.arrow-btn.down{grid-column:2;grid-row:3}
+.arrow-btn.left{grid-column:1;grid-row:2}
+.arrow-btn.right{grid-column:3;grid-row:2}
+.arrow-btn .help-q{position:absolute;top:0;right:10px;background:rgba(255,215,0,.85);color:#fff;border:1.5px solid #fff;border-radius:50%;width:20px;height:20px;font-size:11px;font-weight:900;cursor:pointer;box-shadow:0 2px 4px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;font-family:inherit;z-index:3;padding:0}
+.arrow-btn .help-q:active{transform:scale(.9)}
+.arrow-btn .code-popup{position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);background:#1e2a38;color:#50fa7b;font-family:'Courier New',monospace;font-size:12px;font-weight:bold;padding:4px 10px;border-radius:8px;opacity:0;pointer-events:none;transition:all .3s;direction:ltr;white-space:nowrap;z-index:5;box-shadow:0 4px 10px rgba(0,0,0,.3)}
+.arrow-btn .code-popup.show{opacity:1}
+
+/* صف الأوامر الإضافية (🔁 + 🦘) */
+.extra-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.extra-btn{background:transparent;border:2px solid #e0e6ed;border-radius:14px;padding:8px 16px;font-size:22px;font-weight:bold;cursor:pointer;transition:all .15s;color:#2c3e50;min-width:60px;display:flex;align-items:center;justify-content:center;position:relative}
+.extra-btn:active{transform:scale(.9)}
+.extra-btn.repeat{border-color:#c8a2d8;color:#9b59b6}
+.extra-btn.jump{border-color:#a2d8c8;color:#16a085}
+
+/* صف أزرار التشغيل */
+.run-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;width:100%}
+.run-btn{padding:14px 24px;border-radius:18px;font-size:18px;font-weight:900;cursor:pointer;border:none;color:#fff;transition:transform .1s;flex:1;min-width:100px;max-width:160px}
+.run-btn:active{transform:translateY(3px)}
+.run-btn-main{background:linear-gradient(135deg,#2ecc71,#27ae60);box-shadow:0 5px 0 #229954}
+.run-btn-step{background:linear-gradient(135deg,#3498db,#2980b9);box-shadow:0 5px 0 #21618c}
+.run-btn-reset{background:linear-gradient(135deg,#e74c3c,#c0392b);box-shadow:0 5px 0 #922b21}
+
+/* صف السرعة والمستوى التالي */
+.bottom-row{display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap;width:100%}
+.speed-control{display:flex;align-items:center;gap:6px;font-size:13px;color:#7f8c8d;background:#fff;padding:8px 12px;border-radius:14px;box-shadow:0 2px 6px rgba(0,0,0,.06)}
 .speed-control input{width:80px}
-.star{position:fixed;font-size:40px;pointer-events:none;z-index:1000;animation:starFly 1.8s ease-out forwards}
+.next-btn{background:linear-gradient(135deg,#9b59b6,#8e44ad);color:#fff;border:none;border-radius:16px;padding:12px 20px;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 4px 0 #6c3483;transition:transform .1s}
+.next-btn:active{transform:translateY(2px);box-shadow:0 2px 0 #6c3483}
+
+.feedback{font-size:17px;font-weight:bold;color:#2ecc71;min-height:26px;text-align:center;padding:4px}
+
+/* النوافذ المنبثقة */
+.win-overlay{position:fixed;inset:0;background:rgba(46,204,113,.9);display:flex;align-items:center;justify-content:center;z-index:999;padding:16px}
+.win-card{background:#fff;border-radius:25px;padding:24px 28px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.2);max-width:340px}
+.win-card h2{font-size:26px;color:#27ae60;margin:0 0 8px}
+.win-card .win-emoji{font-size:52px;margin:8px 0}
+.win-card .stars-earned{font-size:34px;margin:8px 0 14px;letter-spacing:4px}
+.win-card p{font-size:16px;color:#2c3e50;margin:0 0 14px}
+.win-card button{background:#2ecc71;color:#fff;border:none;border-radius:16px;padding:12px 24px;font-size:17px;font-weight:bold;cursor:pointer;box-shadow:0 4px 0 #27ae60;margin:4px}
+.win-card .retry-btn{background:#3498db;box-shadow:0 4px 0 #2980b9}
+
+.star{position:fixed;font-size:36px;pointer-events:none;z-index:1000;animation:starFly 1.8s ease-out forwards}
 @keyframes starFly{0%{transform:translateY(0) scale(.3);opacity:0}20%{opacity:1}100%{transform:translateY(-250px) scale(.6);opacity:0}}
-.win-overlay{position:fixed;inset:0;background:rgba(46,204,113,.85);display:flex;align-items:center;justify-content:center;z-index:999;padding:20px}
-.win-card{background:#fff;border-radius:25px;padding:30px 40px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.2);max-width:420px}
-.win-card h2{font-size:32px;color:#27ae60;margin:0 0 10px}
-.win-card .win-emoji{font-size:60px;margin:10px 0}
-.win-card .stars-earned{font-size:40px;margin:10px 0 20px;letter-spacing:5px}
-.win-card p{font-size:20px;color:#2c3e50;margin:0 0 20px}
-.win-card button{background:#2ecc71;color:#fff;border:none;border-radius:20px;padding:15px 35px;font-size:22px;font-weight:bold;cursor:pointer;box-shadow:0 5px 0 #27ae60;margin:5px}
-.win-card .retry-btn{background:#3498db;box-shadow:0 5px 0 #2980b9}
+
 .hidden{display:none!important}
-.editor-view{width:100%;max-width:900px;background:#fff;border-radius:20px;padding:20px;box-shadow:0 4px 10px rgba(0,0,0,.1)}
-.editor-view h2{text-align:center;color:#8e44ad;margin-top:0}
-.editor-layout{display:flex;flex-wrap:wrap;gap:20px;justify-content:center}
-.editor-grid{display:grid;grid-template-columns:repeat(5,60px);grid-template-rows:repeat(5,60px);gap:4px;background:#e0e0e0;padding:4px;border-radius:12px}
-.editor-cell{background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:32px;position:relative;cursor:pointer}
+
+/* الألبوم */
+.album-view{position:fixed;inset:0;background:linear-gradient(160deg,#667eea,#764ba2);z-index:998;padding:16px;overflow-y:auto}
+.album-container{max-width:800px;margin:0 auto;background:#fff;border-radius:22px;padding:16px}
+.album-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #f0f2f5;flex-wrap:wrap;gap:8px}
+.album-header h2{margin:0;font-size:20px;color:#764ba2;font-weight:900}
+.album-progress-pill{background:#764ba2;color:#fff;padding:5px 12px;border-radius:16px;font-size:12px;font-weight:bold}
+.album-close{background:#e74c3c;color:#fff;border:none;border-radius:10px;padding:7px 12px;font-size:12px;font-weight:bold;cursor:pointer}
+.album-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:10px}
+.album-card{aspect-ratio:1;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px;position:relative;cursor:pointer;border:2px solid transparent}
+.album-card.locked{background:#e8ecf1;border-color:#d5dae0}
+.album-card.locked .animal-img{font-size:26px;filter:grayscale(1);opacity:.35}
+.album-card.unlocked{background:#fff;border-color:#27ae60;box-shadow:0 3px 10px rgba(46,204,113,.2)}
+.album-card.unlocked .animal-img{font-size:30px}
+.album-card.unlocked .food-img{font-size:16px}
+.album-card .level-num{position:absolute;top:3px;right:5px;font-size:9px;font-weight:bold;color:#7f8c8d;background:rgba(255,255,255,.9);padding:1px 5px;border-radius:6px}
+.album-card.unlocked .level-num{background:#27ae60;color:#fff}
+.album-card .animal-name{font-size:9px;color:#2c3e50;font-weight:bold;margin-top:2px}
+
+/* المحرر */
+.editor-view{width:100%;max-width:700px;background:#fff;border-radius:20px;padding:16px;box-shadow:0 4px 14px rgba(0,0,0,.08)}
+.editor-view h2{text-align:center;color:#8e44ad;margin:0 0 10px;font-size:18px}
+.editor-layout{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+.editor-grid{display:grid;grid-template-columns:repeat(5,48px);grid-template-rows:repeat(5,48px);gap:3px;background:#e0e0e0;padding:3px;border-radius:10px}
+.editor-cell{background:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:26px;position:relative;cursor:pointer}
 .editor-cell.wall{background:#8d6e63}
 .editor-cell.carrot{background:#fff9c4}
-.editor-cell .arrow{position:absolute;top:-18px;right:-18px;font-size:24px;color:#e74c3c;z-index:3}
-.editor-tools{display:flex;flex-direction:column;gap:12px;min-width:260px}
-.tool-group{background:#f8f9fa;border-radius:15px;padding:10px;display:flex;flex-direction:column;gap:8px}
-.tool-group h3{margin:0;font-size:16px;color:#2c3e50;text-align:center}
-.tool-buttons{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.tool-btn{background:#bdc3c7;border:3px solid transparent;border-radius:12px;padding:8px 14px;font-size:22px;cursor:pointer}
-.tool-btn.active{background:#f39c12;border-color:#e67e22;box-shadow:0 3px 0 #b87e0e}
-.theme-btn{background:#ecf0f1;border:3px solid transparent;border-radius:12px;padding:6px 10px;font-size:24px;cursor:pointer}
+.editor-cell .arrow{position:absolute;top:-12px;right:-12px;font-size:18px;color:#e74c3c;z-index:3}
+.editor-tools{display:flex;flex-direction:column;gap:10px;min-width:220px}
+.tool-group{background:#f8f9fa;border-radius:12px;padding:8px;display:flex;flex-direction:column;gap:6px}
+.tool-group h3{margin:0;font-size:14px;color:#2c3e50;text-align:center}
+.tool-buttons{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.tool-btn{background:#bdc3c7;border:3px solid transparent;border-radius:10px;padding:6px 10px;font-size:20px;cursor:pointer}
+.tool-btn.active{background:#f39c12;border-color:#e67e22}
+.theme-btn{background:#ecf0f1;border:3px solid transparent;border-radius:10px;padding:4px 8px;font-size:20px;cursor:pointer}
 .theme-btn.active{background:#f39c12;border-color:#e67e22}
-.dir-btn{background:#3498db;color:#fff;border:none;border-radius:12px;width:44px;height:44px;font-size:22px;cursor:pointer;box-shadow:0 3px 0 #2980b9}
-.editor-inputs{display:flex;flex-direction:column;gap:8px}
-.editor-inputs label{font-size:14px;font-weight:bold;color:#2c3e50}
-.editor-inputs input{width:100%;padding:10px;border-radius:10px;border:2px solid #bdc3c7;font-size:16px;font-family:inherit}
-.editor-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.editor-actions button{padding:12px 18px;border-radius:12px;font-size:16px;font-weight:bold;cursor:pointer;border:none;color:#fff}
+.dir-btn{background:#3498db;color:#fff;border:none;border-radius:10px;width:38px;height:38px;font-size:18px;cursor:pointer}
+.dir-btn.active{background:#e74c3c}
+.editor-inputs{display:flex;flex-direction:column;gap:6px}
+.editor-inputs label{font-size:13px;font-weight:bold;color:#2c3e50}
+.editor-inputs input{width:100%;padding:8px;border-radius:8px;border:2px solid #bdc3c7;font-size:14px;font-family:inherit}
+.editor-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.editor-actions button{padding:10px 14px;border-radius:10px;font-size:14px;font-weight:bold;cursor:pointer;border:none;color:#fff}
 .save-btn{background:#27ae60}
 .clear-btn{background:#e67e22}
 .back-btn{background:#3498db}
-.album-view{position:fixed;inset:0;background:linear-gradient(160deg,#667eea,#764ba2);z-index:998;padding:16px;overflow-y:auto}
-.album-container{max-width:900px;margin:0 auto;background:#fff;border-radius:24px;padding:18px}
-.album-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #f0f2f5;flex-wrap:wrap;gap:10px}
-.album-header h2{margin:0;font-size:22px;color:#764ba2;font-weight:900}
-.album-progress-pill{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:bold}
-.album-close{background:#e74c3c;color:#fff;border:none;border-radius:12px;padding:9px 14px;font-size:13px;font-weight:bold;cursor:pointer;box-shadow:0 4px 0 #c0392b}
-.album-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:12px;padding:6px}
-.album-card{aspect-ratio:1;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px;position:relative;transition:all .3s ease;cursor:pointer;border:3px solid transparent}
-.album-card.locked{background:#e8ecf1;border-color:#d5dae0}
-.album-card.locked .animal-img{font-size:30px;filter:grayscale(1);opacity:.35}
-.album-card.unlocked{background:#fff;border-color:#27ae60;box-shadow:0 4px 14px rgba(46,204,113,.25)}
-.album-card.unlocked .animal-img{font-size:36px}
-.album-card.unlocked .food-img{font-size:18px}
-.album-card .level-num{position:absolute;top:4px;right:6px;font-size:10px;font-weight:bold;color:#7f8c8d;background:rgba(255,255,255,.9);padding:1px 7px;border-radius:8px}
-.album-card.unlocked .level-num{background:#27ae60;color:#fff}
-.album-card .animal-name{font-size:10px;color:#2c3e50;font-weight:bold;margin-top:3px}
+
+@media (max-width:400px){
+  .arrows-row{width:180px;height:180px}
+  .arrow-btn .arrow-icon{font-size:44px}
+  .run-btn{font-size:16px;padding:12px 16px}
+  .program-item{font-size:17px;padding:5px 8px}
+}
 </style>
 </head>
 <body>
@@ -139,7 +180,8 @@ h1{font-size:24px;color:#2c3e50;margin:10px 0}
 
 <div class="progress-bar" id="progressBar"></div>
 
-<div class="game-container" id="gameView">
+<div class="game-wrapper" id="gameView">
+
   <div class="board-section">
     <div class="level-info">
       <h2 id="levelTitle">المستوى 1</h2>
@@ -148,49 +190,59 @@ h1{font-size:24px;color:#2c3e50;margin:10px 0}
     <div class="board" id="board"></div>
     <div class="feedback" id="feedback"></div>
   </div>
-  <div class="controls">
-    <div class="dpad">
-      <div class="cmd-btn up">
-        <button class="help-q" onclick="showCode(this, 'up()')">؟</button>
-        <span class="arrow-big" onclick="addCommand('up')">⬆️</span>
-        <span class="cmd-code-popup">up()</span>
-      </div>
-      <div class="cmd-btn left">
-        <button class="help-q" onclick="showCode(this, 'left()')">؟</button>
-        <span class="arrow-big" onclick="addCommand('left')">⬅️</span>
-        <span class="cmd-code-popup">left()</span>
-      </div>
-      <div class="cmd-btn right">
-        <button class="help-q" onclick="showCode(this, 'right()')">؟</button>
-        <span class="arrow-big" onclick="addCommand('right')">➡️</span>
-        <span class="cmd-code-popup">right()</span>
-      </div>
-      <div class="cmd-btn down">
-        <button class="help-q" onclick="showCode(this, 'down()')">؟</button>
-        <span class="arrow-big" onclick="addCommand('down')">⬇️</span>
-        <span class="cmd-code-popup">down()</span>
-      </div>
-    </div>
-    <div class="palette">
-      <button class="cmd-btn repeat" onclick="addRepeat(2)">🔁2</button>
-      <button class="cmd-btn repeat" onclick="addRepeat(3)">🔁3</button>
-      <button class="cmd-btn repeat" onclick="addRepeat(4)">🔁4</button>
-    </div>
-    <div class="palette">
-      <button class="cmd-btn jump" onclick="addCommand('jump')">🦘</button>
-    </div>
-    <div class="program" id="program"></div>
-    <div class="run-controls">
-      <button class="run-btn" onclick="runProgram()">▶️ شغّل</button>
-      <button class="run-btn step-btn" onclick="stepProgram()">👣 خطوة</button>
-      <button class="run-btn reset-btn" onclick="resetLevel()">🔄 إعادة</button>
-    </div>
-    <div class="speed-control">
-      <label>السرعة:</label>
-      <input type="range" id="speed" min="100" max="1000" value="500" step="100">
-    </div>
-    <button class="cmd-btn" style="background:#9b59b6;box-shadow:0 5px 0 #7d3c98;" onclick="nextLevel()">➡️ التالي</button>
+
+  <div class="program-box" id="program">
+    <span class="empty">👇 اضغط على الأسهم عشان تبني البرنامج</span>
   </div>
+
+  <div class="controls-panel">
+
+    <div class="arrows-row">
+      <button class="arrow-btn up" onclick="addCommand('up')">
+        <span class="help-q" onclick="event.stopPropagation(); showCode(this, 'up()')">؟</span>
+        <span class="arrow-icon">⬆️</span>
+        <span class="code-popup">up()</span>
+      </button>
+      <button class="arrow-btn left" onclick="addCommand('left')">
+        <span class="help-q" onclick="event.stopPropagation(); showCode(this, 'left()')">؟</span>
+        <span class="arrow-icon">⬅️</span>
+        <span class="code-popup">left()</span>
+      </button>
+      <button class="arrow-btn right" onclick="addCommand('right')">
+        <span class="help-q" onclick="event.stopPropagation(); showCode(this, 'right()')">؟</span>
+        <span class="arrow-icon">➡️</span>
+        <span class="code-popup">right()</span>
+      </button>
+      <button class="arrow-btn down" onclick="addCommand('down')">
+        <span class="help-q" onclick="event.stopPropagation(); showCode(this, 'down()')">؟</span>
+        <span class="arrow-icon">⬇️</span>
+        <span class="code-popup">down()</span>
+      </button>
+    </div>
+
+    <div class="extra-row">
+      <button class="extra-btn repeat" onclick="addRepeat(2)">🔁2</button>
+      <button class="extra-btn repeat" onclick="addRepeat(3)">🔁3</button>
+      <button class="extra-btn repeat" onclick="addRepeat(4)">🔁4</button>
+      <button class="extra-btn jump" onclick="addCommand('jump')">🦘</button>
+    </div>
+
+    <div class="run-row">
+      <button class="run-btn run-btn-main" onclick="runProgram()">▶️ شغّل</button>
+      <button class="run-btn run-btn-step" onclick="stepProgram()">👣 خطوة</button>
+      <button class="run-btn run-btn-reset" onclick="resetLevel()">🔄 إعادة</button>
+    </div>
+
+    <div class="bottom-row">
+      <div class="speed-control">
+        <label>⚡ السرعة:</label>
+        <input type="range" id="speed" min="100" max="1000" value="500" step="100">
+      </div>
+      <button class="next-btn" onclick="nextLevel()">➡️ التالي</button>
+    </div>
+
+  </div>
+
 </div>
 
 <div class="album-view hidden" id="albumView">
@@ -206,7 +258,7 @@ h1{font-size:24px;color:#2c3e50;margin:10px 0}
 
 <div class="editor-view hidden" id="editorView">
   <h2>🛠️ محرر المستويات</h2>
-  <p style="text-align:center;color:#7f8c8d;font-size:14px;margin:6px 0">اختر الحيوان، ثم أداة، ثم دوس على الخلية</p>
+  <p style="text-align:center;color:#7f8c8d;font-size:13px;margin:0 0 10px">اختر الحيوان، ثم أداة، ثم دوس على الخلية</p>
   <div class="editor-layout">
     <div><div class="editor-grid" id="editorGrid"></div></div>
     <div class="editor-tools">
@@ -245,606 +297,33 @@ h1{font-size:24px;color:#2c3e50;margin:10px 0}
       </div>
     </div>
   </div>
-  <div style="margin-top:20px;padding:12px;background:#f8f9fa;border-radius:15px">
-    <h3 style="margin:0 0 10px;font-size:16px;color:#2c3e50">📋 المستويات المخصصة</h3>
+  <div style="margin-top:16px;padding:10px;background:#f8f9fa;border-radius:12px">
+    <h3 style="margin:0 0 8px;font-size:14px;color:#2c3e50">📋 المستويات المخصصة</h3>
     <div id="customLevelsItems"></div>
   </div>
 </div>
-<script>
-const THEMES = [
-  { a:'🐰', f:'🥕', name:'أرنب' },
-  { a:'🐱', f:'🐟', name:'قطة' },
-  { a:'🐶', f:'🦴', name:'كلب' },
-  { a:'🐵', f:'🍌', name:'قرد' },
-  { a:'🐼', f:'🎋', name:'باندا' },
-  { a:'🐻', f:'🍯', name:'دب' },
-  { a:'🐭', f:'🧀', name:'فأر' },
-  { a:'🐷', f:'🌽', name:'خنزير' },
-  { a:'🐔', f:'🌾', name:'دجاجة' },
-  { a:'🐧', f:'🐟', name:'بطريق' },
-  { a:'🦁', f:'🍖', name:'أسد' },
-  { a:'🐘', f:'🥜', name:'فيل' },
-  { a:'🐨', f:'🍃', name:'كوالا' },
-  { a:'🦊', f:'🍇', name:'ثعلب' },
-  { a:'🐢', f:'🥬', name:'سلحفاة' },
-  { a:'🐸', f:'🪰', name:'ضفدع' },
-  { a:'🐴', f:'🍎', name:'حصان' },
-  { a:'🐮', f:'🌿', name:'بقرة' },
-  { a:'🦉', f:'🥩', name:'بومة' },
-  { a:'🐯', f:'🍗', name:'نمر' }
-];
-
-const builtInLevels = [
-  { title:"المستوى 1", hint:"➡️ ➡️", theme:0, start:{x:0,y:0,dir:0}, carrot:{x:2,y:0}, walls:[] },
-  { title:"المستوى 2", hint:"⬇️ ⬇️", theme:1, start:{x:0,y:0,dir:0}, carrot:{x:0,y:2}, walls:[] },
-  { title:"المستوى 3", hint:"➡️ + 🔁3", theme:2, start:{x:0,y:0,dir:0}, carrot:{x:3,y:0}, walls:[] },
-  { title:"المستوى 4", hint:"الطريق ملتف", theme:3, start:{x:0,y:2,dir:0}, carrot:{x:2,y:0}, walls:[] },
-  { title:"المستوى 5", hint:"التف حول الحاجز", theme:4, start:{x:0,y:0,dir:0}, carrot:{x:2,y:2}, walls:[{x:1,y:0}] },
-  { title:"المستوى 6", hint:"🔧 صلّح الكود!", theme:5, start:{x:0,y:0,dir:0}, carrot:{x:3,y:0}, walls:[], prefill:['down','right','right','right'] },
-  { title:"المستوى 7", hint:"روح للأكل", theme:6, start:{x:0,y:0,dir:0}, carrot:{x:0,y:4}, walls:[] },
-  { title:"المستوى 8", hint:"فيه حاجز", theme:7, start:{x:0,y:0,dir:0}, carrot:{x:4,y:0}, walls:[{x:2,y:0}] },
-  { title:"المستوى 9", hint:"فكر!", theme:8, start:{x:0,y:0,dir:0}, carrot:{x:4,y:2}, walls:[{x:2,y:0}] },
-  { title:"المستوى 10", hint:"استخدم 🦘", theme:9, start:{x:0,y:0,dir:0}, carrot:{x:4,y:4}, walls:[{x:2,y:0},{x:2,y:1}] },
-  { title:"المستوى 11", hint:"حاجز في الطريق", theme:10, start:{x:0,y:0,dir:0}, carrot:{x:4,y:0}, walls:[{x:2,y:0}] },
-  { title:"المستوى 12", hint:"الزجزاج", theme:11, start:{x:0,y:0,dir:0}, carrot:{x:4,y:2}, walls:[{x:2,y:0}] },
-  { title:"المستوى 13", hint:"حاجز طويل", theme:12, start:{x:0,y:0,dir:0}, carrot:{x:4,y:4}, walls:[{x:2,y:0},{x:2,y:1}] },
-  { title:"المستوى 14", hint:"الممر الضيق", theme:13, start:{x:0,y:0,dir:0}, carrot:{x:4,y:4}, walls:[{x:1,y:1},{x:1,y:2},{x:1,y:3}] },
-  { title:"المستوى 15", hint:"اللفة", theme:14, start:{x:0,y:0,dir:0}, carrot:{x:4,y:0}, walls:[{x:2,y:0}] },
-  { title:"المستوى 16", hint:"المتاهة", theme:15, start:{x:0,y:0,dir:0}, carrot:{x:4,y:4}, walls:[{x:2,y:1},{x:2,y:2},{x:2,y:3}] },
-  { title:"المستوى 17", hint:"طريق متعرج", theme:16, start:{x:0,y:2,dir:0}, carrot:{x:4,y:2}, walls:[{x:1,y:2},{x:3,y:2}] },
-  { title:"المستوى 18", hint:"لفة كبيرة", theme:17, start:{x:0,y:0,dir:0}, carrot:{x:0,y:4}, walls:[{x:0,y:2}] },
-  { title:"المستوى 19", hint:"متاهة كبيرة", theme:18, start:{x:0,y:0,dir:0}, carrot:{x:4,y:4}, walls:[{x:1,y:0},{x:1,y:1},{x:3,y:2},{x:3,y:3}] },
-  { title:"المستوى 20", hint:"التحدي الأخير", theme:19, start:{x:0,y:0,dir:0}, carrot:{x:4,y:0}, walls:[{x:1,y:0},{x:3,y:0},{x:1,y:2},{x:3,y:2},{x:2,y:3}] }
-];
-
-const SAVE_KEY = 'rabbitGameProgress_v7';
-const CUSTOM_KEY = 'rabbitCustomLevels_v4';
-let customLevels = [], levels = [];
-let currentLevel = 0, rabbit = {x:0,y:0,dir:0}, program = [];
-let isRunning = false, stepIndex = 0, audioCtx = null;
-let savedProgress = { currentLevel: 0, completedLevels: [], totalStars: 0 };
-
-const boardEl = document.getElementById('board');
-const programEl = document.getElementById('program');
-const levelTitleEl = document.getElementById('levelTitle');
-const levelHintEl = document.getElementById('levelHint');
-const feedbackEl = document.getElementById('feedback');
-const speedInput = document.getElementById('speed');
-const totalStarsEl = document.getElementById('totalStars');
-const currentLevelNumEl = document.getElementById('currentLevelNum');
-const progressBarEl = document.getElementById('progressBar');
-
-const dx = [1,0,-1,0];
-const dy = [0,1,0,-1];
-const dirSymbols = ['←','↓','→','↑'];
-const cmdLabels = { up:'⬆️', down:'⬇️', left:'⬅️', right:'➡️', jump:'🦘' };
-
-function getTheme(lv) { return THEMES[lv.theme || 0]; }
-function rebuildLevels() { levels = builtInLevels.concat(customLevels); }
-
-function saveProgress() {
-  savedProgress.currentLevel = currentLevel;
-  try { localStorage.setItem(SAVE_KEY, JSON.stringify(savedProgress)); } catch(e){}
-  updateTopBar(); renderProgressBar();
-}
-function loadProgress() {
-  try {
-    const raw = localStorage.getItem(SAVE_KEY);
-    if (raw) { const d = JSON.parse(raw); if (d) {
-      savedProgress.currentLevel = d.currentLevel || 0;
-      savedProgress.completedLevels = Array.isArray(d.completedLevels) ? d.completedLevels : [];
-      savedProgress.totalStars = d.totalStars || 0;
-    }}
-  } catch(e){}
-}
-function saveCustomLevels() { try { localStorage.setItem(CUSTOM_KEY, JSON.stringify(customLevels)); } catch(e){} }
-function loadCustomLevels() {
-  try { const raw = localStorage.getItem(CUSTOM_KEY); if (raw) { const d = JSON.parse(raw); if (Array.isArray(d)) customLevels = d; } } catch(e){}
-}
-function markLevelCompleted(i) {
-  if (savedProgress.completedLevels.indexOf(i) === -1) {
-    savedProgress.completedLevels.push(i);
-    savedProgress.totalStars += 3;
-    saveProgress();
-  }
-}
-function updateTopBar() {
-  totalStarsEl.textContent = savedProgress.totalStars;
-  currentLevelNumEl.textContent = currentLevel + 1;
-}
-function renderProgressBar() {
-  progressBarEl.innerHTML = '';
-  levels.forEach(function(lv, idx) {
-    const t = getTheme(lv);
-    const dot = document.createElement('div');
-    dot.className = 'progress-dot';
-    dot.textContent = t.a;
-    if (savedProgress.completedLevels.indexOf(idx) !== -1) dot.classList.add('done');
-    else if (idx === currentLevel) dot.classList.add('current');
-    dot.onclick = function() { if (!isRunning) { closeWinScreen(); closeAlbum(); loadLevel(idx); saveProgress(); } };
-    progressBarEl.appendChild(dot);
-  });
-}
-function openAlbum() { document.getElementById('albumView').classList.remove('hidden'); renderAlbum(); }
-function closeAlbum() { document.getElementById('albumView').classList.add('hidden'); }
-function renderAlbum() {
-  const grid = document.getElementById('albumGrid');
-  grid.innerHTML = '';
-  const unlocked = savedProgress.completedLevels.length;
-  document.getElementById('albumProgressPill').textContent = unlocked + ' / ' + levels.length;
-  levels.forEach(function(lv, idx) {
-    const t = getTheme(lv);
-    const card = document.createElement('div');
-    card.className = 'album-card';
-    const isDone = savedProgress.completedLevels.indexOf(idx) !== -1;
-    const isCurrent = idx === currentLevel;
-    if (isDone || isCurrent) {
-      card.classList.add('unlocked');
-      card.innerHTML = '<div class="level-num">' + (idx+1) + '</div><div class="animal-img">' + t.a + '</div><div class="food-img">' + t.f + '</div><div class="animal-name">' + t.name + '</div>';
-    } else {
-      card.classList.add('locked');
-      card.innerHTML = '<div class="level-num">' + (idx+1) + '</div><div class="animal-img">❓</div>';
-    }
-    card.onclick = function() {
-      if (isDone || isCurrent) { closeAlbum(); loadLevel(idx); saveProgress(); }
-      else { alert('🔒 خلّص المستويات اللي قبل كده الأول!'); }
-    };
-    grid.appendChild(card);
-  });
-}
-window.openAlbum = openAlbum;
-window.closeAlbum = closeAlbum;
-
-function confirmResetProgress() {
-  if (isRunning) return;
-  if (confirm('متأكد إنك عايز تمسح كل التقدم؟')) {
-    savedProgress = { currentLevel: 0, completedLevels: [], totalStars: 0 };
-    try { localStorage.removeItem(SAVE_KEY); } catch(e){}
-    closeWinScreen(); closeAlbum(); loadLevel(0); saveProgress();
-    feedbackEl.textContent = '🗑️ تم مسح التقدم!';
-  }
-}
-function initAudio() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  if (audioCtx.state === 'suspended') audioCtx.resume();
-  return audioCtx;
-}
-function playTone(freq, dur, delay, type, vol) {
-  if (delay === undefined) delay = 0;
-  if (type === undefined) type = 'sine';
-  if (vol === undefined) vol = 0.2;
-  const ctx = initAudio();
-  const osc = ctx.createOscillator(), gain = ctx.createGain();
-  osc.type = type; osc.frequency.value = freq;
-  osc.connect(gain); gain.connect(ctx.destination);
-  const s = ctx.currentTime + delay;
-  osc.start(s);
-  gain.gain.setValueAtTime(vol, s);
-  gain.gain.exponentialRampToValueAtTime(0.001, s + dur);
-  osc.stop(s + dur);
-}
-function sfxStep() {
-  const ctx = initAudio();
-  const osc = ctx.createOscillator(), gain = ctx.createGain();
-  osc.type = 'sine';
-  osc.frequency.setValueAtTime(220, ctx.currentTime);
-  osc.frequency.exponentialRampToValueAtTime(140, ctx.currentTime + 0.08);
-  gain.gain.setValueAtTime(0.15, ctx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
-  osc.connect(gain); gain.connect(ctx.destination);
-  osc.start(); osc.stop(ctx.currentTime + 0.1);
-}
-function sfxBump() {
-  const ctx = initAudio();
-  const osc = ctx.createOscillator(), gain = ctx.createGain();
-  osc.type = 'sawtooth';
-  osc.frequency.setValueAtTime(180, ctx.currentTime);
-  osc.frequency.exponentialRampToValueAtTime(60, ctx.currentTime + 0.18);
-  gain.gain.setValueAtTime(0.25, ctx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
-  osc.connect(gain); gain.connect(ctx.destination);
-  osc.start(); osc.stop(ctx.currentTime + 0.2);
-}
-function sfxOutOfBounds() {
-  const ctx = initAudio();
-  const osc = ctx.createOscillator(), gain = ctx.createGain();
-  osc.type = 'sine';
-  osc.frequency.setValueAtTime(400, ctx.currentTime);
-  osc.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + 0.3);
-  gain.gain.setValueAtTime(0.2, ctx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
-  osc.connect(gain); gain.connect(ctx.destination);
-  osc.start(); osc.stop(ctx.currentTime + 0.3);
-}
-function playApplause() {
-  const ctx = initAudio();
-  const dur = 2.5, bufSize = ctx.sampleRate * dur;
-  const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
-  const data = buf.getChannelData(0);
-  for (let i = 0; i < bufSize; i++) {
-    const t = i / bufSize, env = Math.exp(-t * 2) * (1 - Math.exp(-t * 20));
-    data[i] = (Math.random() * 2 - 1) * env * 0.5;
-  }
-  const src = ctx.createBufferSource(); src.buffer = buf;
-  const filter = ctx.createBiquadFilter();
-  filter.type = 'bandpass'; filter.frequency.value = 1500; filter.Q.value = 0.8;
-  const gain = ctx.createGain(); gain.gain.value = 0.4;
-  src.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
-  src.start();
-}
-function sfxWin() {
-  playApplause();
-  playTone(523, 0.15, 0, 'triangle', 0.15);
-  playTone(659, 0.15, 0.15, 'triangle', 0.15);
-  playTone(784, 0.25, 0.30, 'triangle', 0.15);
-  playTone(1047, 0.40, 0.55, 'triangle', 0.15);
-}
-function playClick() { playTone(600, 0.05, 0, 'square', 0.08); }
-function spawnStars(n) {
-  if (n === undefined) n = 25;
-  const em = ['⭐','🌟','✨','💫'];
-  for (let i = 0; i < n; i++) {
-    const s = document.createElement('div');
-    s.className = 'star';
-    s.textContent = em[Math.floor(Math.random() * em.length)];
-    s.style.left = Math.random() * 100 + 'vw';
-    s.style.top = (60 + Math.random() * 30) + 'vh';
-    s.style.animationDelay = (Math.random() * 0.6) + 's';
-    s.style.fontSize = (25 + Math.random() * 30) + 'px';
-    document.body.appendChild(s);
-    setTimeout(function() { s.remove(); }, 2500);
-  }
-}
-function showWinScreen() {
-  const t = getTheme(levels[currentLevel]);
-  const o = document.createElement('div');
-  o.className = 'win-overlay';
-  o.innerHTML = '<div class="win-card"><h2>🎉 برافو! 🎉</h2><div class="win-emoji">' + t.a + '❤️' + t.f + '</div><div class="stars-earned">⭐⭐⭐</div><p>وصل ' + t.name + ' للأكل!</p><button class="retry-btn" onclick="closeWinScreen(); resetLevel();">🔄 تاني</button><button onclick="closeWinScreen(); nextLevel();">➡️ التالي</button></div>';
-  document.body.appendChild(o);
-}
-function closeWinScreen() { const o = document.querySelector('.win-overlay'); if (o) o.remove(); }
-function celebrate() {
-  sfxWin(); spawnStars(30);
-  markLevelCompleted(currentLevel);
-  setTimeout(function() { showWinScreen(); }, 500);
-}
-function loadLevel(index) {
-  if (index < 0) index = 0;
-  if (index >= levels.length) index = levels.length - 1;
-  currentLevel = index;
-  const lv = levels[index];
-  rabbit = { x: lv.start.x, y: lv.start.y, dir: lv.start.dir };
-  if (lv.prefill) {
-    program = lv.prefill.map(function(t) { return { type: t, repeat: 1 }; });
-  } else {
-    program = [];
-  }
-  stepIndex = 0; isRunning = false;
-  levelTitleEl.textContent = lv.title;
-  levelHintEl.textContent = lv.hint;
-  feedbackEl.textContent = '';
-  renderBoard(); renderProgram(); updateTopBar(); renderProgressBar();
-}
-function renderBoard(speech) {
-  const lv = levels[currentLevel];
-  const t = getTheme(lv);
-  boardEl.innerHTML = '';
-  for (let y = 0; y < 5; y++) for (let x = 0; x < 5; x++) {
-    const c = document.createElement('div');
-    c.className = 'cell';
-    if (lv.walls.some(function(w) { return w.x === x && w.y === y; })) { c.classList.add('wall'); c.textContent = '🧱'; }
-    if (lv.carrot.x === x && lv.carrot.y === y) { c.classList.add('carrot'); c.textContent = t.f; }
-    if (rabbit.x === x && rabbit.y === y) {
-      const r = document.createElement('div');
-      r.className = 'rabbit'; r.textContent = t.a;
-      const a = document.createElement('div');
-      a.className = 'arrow'; a.textContent = dirSymbols[rabbit.dir];
-      r.appendChild(a);
-      if (speech) { const sp = document.createElement('div'); sp.className = 'speech'; sp.textContent = speech; r.appendChild(sp); }
-      c.appendChild(r);
-    }
-    boardEl.appendChild(c);
-  }
-}
-function renderProgram() {
-  programEl.innerHTML = '';
-  program.forEach(function(cmd, idx) {
-    const it = document.createElement('div');
-    it.className = 'program-item ' + cmd.type;
-    let html = cmdLabels[cmd.type];
-    if (cmd.repeat > 1) html += ' <span class="repeat-badge">×' + cmd.repeat + '</span>';
-    it.innerHTML = html;
-    it.onclick = function() { if (!isRunning) { program.splice(idx, 1); resetRabbit(); renderProgram(); } };
-    programEl.appendChild(it);
-  });
-}
-function resetRabbit() {
-  const lv = levels[currentLevel];
-  rabbit = { x: lv.start.x, y: lv.start.y, dir: lv.start.dir };
-  stepIndex = 0; renderBoard();
-}
-function addCommand(type) {
-  if (isRunning) return;
-  playClick();
-  program.push({ type: type, repeat: 1 });
-  resetRabbit(); renderProgram();
-}
-function showCode(btn, codeText) {
-  playClick();
-  const popup = btn.parentElement.querySelector('.cmd-code-popup');
-  if (!popup) return;
-  document.querySelectorAll('.cmd-code-popup.show').forEach(function(p) {
-    if (p !== popup) p.classList.remove('show');
-  });
-  popup.textContent = codeText;
-  popup.classList.add('show');
-  clearTimeout(popup._hideTimer);
-  popup._hideTimer = setTimeout(function() { popup.classList.remove('show'); }, 2500);
-}
-function addRepeat(n) {
-  if (isRunning) return;
-  if (program.length === 0) { feedbackEl.textContent = '🤔 أضف أمر أولاً'; return; }
-  const last = program[program.length - 1];
-  if (last.type === 'jump') { feedbackEl.textContent = '🤔 الكرر ما ينفعش مع الأمر ده'; return; }
-  playClick();
-  last.repeat = n;
-  feedbackEl.textContent = '🔁 آخر أمر هيتكرر ' + n + ' مرات';
-  renderProgram();
-}
-function resetLevel() { if (isRunning) return; closeWinScreen(); loadLevel(currentLevel); }
-function nextLevel() {
-  if (isRunning) return;
-  closeWinScreen();
-  if (currentLevel < levels.length - 1) { loadLevel(currentLevel + 1); saveProgress(); }
-  else { feedbackEl.textContent = '🎉 خلصت كل المستويات!'; spawnStars(50); sfxWin(); }
-}
-function executeCommand(type) {
-  const lv = levels[currentLevel];
-  if (type === 'up' || type === 'down' || type === 'left' || type === 'right') {
-    let newDir, ddx = 0, ddy = 0;
-    if (type === 'right') { newDir = 0; ddx = 1; }
-    else if (type === 'down') { newDir = 1; ddy = 1; }
-    else if (type === 'left') { newDir = 2; ddx = -1; }
-    else if (type === 'up') { newDir = 3; ddy = -1; }
-    rabbit.dir = newDir;
-    const nx = rabbit.x + ddx, ny = rabbit.y + ddy;
-    if (nx < 0 || nx > 4 || ny < 0 || ny > 4) { sfxOutOfBounds(); shakeRabbit(); feedbackEl.textContent = '🙈 خارج اللوحة!'; return 'fail'; }
-    if (lv.walls.some(function(w) { return w.x === nx && w.y === ny; })) { sfxBump(); shakeRabbit(); feedbackEl.textContent = '🧱 فيه حاجز!'; return 'fail'; }
-    sfxStep(); rabbit.x = nx; rabbit.y = ny;
-    if (rabbit.x === lv.carrot.x && rabbit.y === lv.carrot.y) {
-      renderBoard('لقيته! 🎉');
-      const rEl = document.querySelector('.rabbit');
-      if (rEl) rEl.classList.add('jump');
-      return 'win';
-    }
-  } else if (type === 'jump') {
-    const landX = rabbit.x + dx[rabbit.dir] * 2;
-    const landY = rabbit.y + dy[rabbit.dir] * 2;
-    if (landX < 0 || landX > 4 || landY < 0 || landY > 4) { sfxOutOfBounds(); shakeRabbit(); feedbackEl.textContent = '🙈 خارج اللوحة!'; return 'fail'; }
-    if (lv.walls.some(function(w) { return w.x === landX && w.y === landY; })) { sfxBump(); shakeRabbit(); feedbackEl.textContent = '🧱 نزلت على حاجز!'; return 'fail'; }
-    sfxStep(); playTone(700, 0.1, 0, 'sine', 0.15);
-    rabbit.x = landX; rabbit.y = landY;
-    if (rabbit.x === lv.carrot.x && rabbit.y === lv.carrot.y) {
-      renderBoard('لقيته! 🎉');
-      const rEl = document.querySelector('.rabbit');
-      if (rEl) rEl.classList.add('jump');
-      return 'win';
-    }
-  }
-  renderBoard(); return 'ok';
-}
-function shakeRabbit() {
-  setTimeout(function() {
-    const r = document.querySelector('.rabbit');
-    if (r) { r.classList.add('shake'); setTimeout(function() { r.classList.remove('shake'); }, 320); }
-  }, 30);
-}
-function sleep(ms) { return new Promise(function(r) { setTimeout(r, ms); }); }
-async function runProgram() {
-  if (isRunning) return;
-  if (program.length === 0) { feedbackEl.textContent = '🤔 أضف أوامر أولاً!'; return; }
-  initAudio(); isRunning = true; feedbackEl.textContent = '';
-  resetRabbit(); await sleep(300);
-  const speed = parseInt(speedInput.value);
-  for (let i = 0; i < program.length; i++) {
-    const cmd = program[i];
-    for (let r = 0; r < cmd.repeat; r++) {
-      const res = executeCommand(cmd.type);
-      await sleep(speed);
-      if (res === 'win') { isRunning = false; celebrate(); return; }
-      if (res === 'fail') { isRunning = false; return; }
-    }
-  }
-  isRunning = false;
-}
-async function stepProgram() {
-  if (isRunning) return;
-  if (program.length === 0) { feedbackEl.textContent = '🤔 أضف أوامر أولاً!'; return; }
-  initAudio();
-  if (stepIndex >= program.length) { feedbackEl.textContent = 'انتهت الأوامر.'; return; }
-  isRunning = true;
-  const cmd = program[stepIndex];
-  let won = false;
-  for (let r = 0; r < cmd.repeat; r++) {
-    const res = executeCommand(cmd.type);
-    if (res === 'win') { won = true; break; }
-    if (res === 'fail') break;
-  }
-  stepIndex++;
-  if (won) { feedbackEl.textContent = '🎉 برافو!'; celebrate(); }
-  isRunning = false;
-}
-
-// ========== المحرر ==========
-var editorGrid = [], editorRabbitDir = 0, currentTool = 'rabbit', editorTheme = 0;
-function initEditorGrid() {
-  editorGrid = [];
-  for (let y = 0; y < 5; y++) { editorGrid[y] = [null,null,null,null,null]; }
-  editorGrid[0][0] = 'rabbit';
-  editorGrid[0][2] = 'carrot';
-  editorRabbitDir = 0;
-  editorTheme = 0;
-}
-function renderThemeButtons() {
-  const el = document.getElementById('themeButtons');
-  if (!el) return;
-  el.innerHTML = '';
-  for (let i = 0; i < THEMES.length; i++) {
-    const t = THEMES[i];
-    const b = document.createElement('button');
-    b.className = 'theme-btn' + (i === editorTheme ? ' active' : '');
-    b.textContent = t.a + t.f;
-    b.title = t.name;
-    b.onclick = (function(idx) { return function() { editorTheme = idx; renderThemeButtons(); renderEditorGrid(); }; })(i);
-    el.appendChild(b);
-  }
-}
-function openEditor() {
-  document.getElementById('gameView').classList.add('hidden');
-  document.getElementById('editorView').classList.remove('hidden');
-  document.getElementById('progressBar').classList.add('hidden');
-  initEditorGrid(); selectTool('rabbit'); setDir(0);
-  renderThemeButtons();
-  renderEditorGrid(); renderCustomLevelsList();
-  document.getElementById('editorTitle').value = '';
-  document.getElementById('editorHint').value = '';
-}
-function closeEditor() {
-  document.getElementById('gameView').classList.remove('hidden');
-  document.getElementById('editorView').classList.add('hidden');
-  document.getElementById('progressBar').classList.remove('hidden');
-  rebuildLevels();
-  if (currentLevel >= levels.length) currentLevel = 0;
-  loadLevel(currentLevel);
-}
-function selectTool(t) {
-  currentTool = t;
-  document.querySelectorAll('.tool-btn').forEach(function(b) { b.classList.toggle('active', b.dataset.tool === t); });
-  document.getElementById('dirGroup').style.opacity = t === 'rabbit' ? '1' : '0.5';
-}
-function setDir(d) {
-  editorRabbitDir = d;
-  document.querySelectorAll('.dir-btn').forEach(function(b) { b.classList.toggle('active', parseInt(b.dataset.dir) === d); });
-  renderEditorGrid();
-}
-function renderEditorGrid() {
-  const g = document.getElementById('editorGrid');
-  const t = THEMES[editorTheme];
-  g.innerHTML = '';
-  for (let y = 0; y < 5; y++) for (let x = 0; x < 5; x++) {
-    const c = document.createElement('div');
-    c.className = 'editor-cell';
-    const v = editorGrid[y][x];
-    if (v === 'rabbit') {
-      c.textContent = t.a;
-      const a = document.createElement('div');
-      a.className = 'arrow'; a.textContent = dirSymbols[editorRabbitDir];
-      c.appendChild(a);
-    } else if (v === 'carrot') { c.classList.add('carrot'); c.textContent = t.f; }
-    else if (v === 'wall') { c.classList.add('wall'); c.textContent = '🧱'; }
-    c.onclick = (function(xx, yy) { return function() { placeInCell(xx, yy); }; })(x, y);
-    g.appendChild(c);
-  }
-}
-function placeInCell(x, y) {
-  if (currentTool === 'erase') { if (editorGrid[y][x] !== 'rabbit') editorGrid[y][x] = null; renderEditorGrid(); return; }
-  if (currentTool === 'rabbit') {
-    for (let yy = 0; yy < 5; yy++) for (let xx = 0; xx < 5; xx++) if (editorGrid[yy][xx] === 'rabbit') editorGrid[yy][xx] = null;
-    editorGrid[y][x] = 'rabbit';
-  } else if (currentTool === 'carrot') {
-    for (let yy = 0; yy < 5; yy++) for (let xx = 0; xx < 5; xx++) if (editorGrid[yy][xx] === 'carrot') editorGrid[yy][xx] = null;
-    if (editorGrid[y][x] === 'rabbit') editorGrid[y][x] = null;
-    editorGrid[y][x] = 'carrot';
-  } else if (currentTool === 'wall') {
-    if (editorGrid[y][x] === 'rabbit' || editorGrid[y][x] === 'carrot') return;
-    editorGrid[y][x] = 'wall';
-  }
-  renderEditorGrid();
-}
-function clearEditor() {
-  if (!confirm('متأكد إنك عايز تمسح الشبكة؟')) return;
-  initEditorGrid(); renderThemeButtons(); renderEditorGrid();
-}
-function saveLevel() {
-  let r = null, c = null;
-  const w = [];
-  for (let y = 0; y < 5; y++) for (let x = 0; x < 5; x++) {
-    const v = editorGrid[y][x];
-    if (v === 'rabbit') r = {x:x, y:y};
-    else if (v === 'carrot') c = {x:x, y:y};
-    else if (v === 'wall') w.push({x:x, y:y});
-  }
-  if (!r) { alert('لازم تحط الحيوان'); return; }
-  if (!c) { alert('لازم تحط الأكل'); return; }
-  const t = document.getElementById('editorTitle').value.trim();
-  const h = document.getElementById('editorHint').value.trim();
-  customLevels.push({
-    title: t || ('مستوى مخصص ' + (customLevels.length + 1)),
-    hint: h || 'مستوى من صنعك!',
-    theme: editorTheme,
-    start: { x: r.x, y: r.y, dir: editorRabbitDir },
-    carrot: { x: c.x, y: c.y },
-    walls: w, isCustom: true
-  });
-  saveCustomLevels(); rebuildLevels(); renderCustomLevelsList(); renderProgressBar();
-  alert('✅ تم حفظ المستوى!');
-  document.getElementById('editorTitle').value = '';
-  document.getElementById('editorHint').value = '';
-}
-function renderCustomLevelsList() {
-  const el = document.getElementById('customLevelsItems');
-  el.innerHTML = '';
-  if (customLevels.length === 0) {
-    el.innerHTML = '<div style="color:#7f8c8d;font-size:14px;text-align:center;padding:10px;">لسه مفيش مستويات مخصصة</div>';
-    return;
-  }
-  for (let idx = 0; idx < customLevels.length; idx++) {
-    const lv = customLevels[idx];
-    const t = THEMES[lv.theme || 0];
-    const it = document.createElement('div');
-    it.style.cssText = 'display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:10px;padding:8px 12px;margin-bottom:6px;font-size:15px';
-    it.innerHTML = '<span>' + t.a + ' مستوى ' + (builtInLevels.length + idx + 1) + ': ' + lv.title + '</span>';
-    const b = document.createElement('button');
-    b.textContent = '🗑️';
-    b.style.cssText = 'background:#e74c3c;color:#fff;border:none;border-radius:8px;padding:6px 12px;cursor:pointer';
-    b.onclick = (function(i) { return function() { deleteCustomLevel(i); }; })(idx);
-    it.appendChild(b);
-    el.appendChild(it);
-  }
-}
-function deleteCustomLevel(idx) {
-  if (!confirm('متأكد؟')) return;
-  const g = builtInLevels.length + idx;
-  customLevels.splice(idx, 1);
-  saveCustomLevels();
-  savedProgress.completedLevels = savedProgress.completedLevels.filter(function(i) { return i !== g; }).map(function(i) { return i > g ? i - 1 : i; });
-  rebuildLevels();
-  if (currentLevel >= levels.length) currentLevel = Math.max(0, levels.length - 1);
-  saveProgress(); renderCustomLevelsList(); renderProgressBar(); updateTopBar();
-}
-
-// ========== Window Exports ==========
-window.addCommand = addCommand;
-window.addRepeat = addRepeat;
-window.runProgram = runProgram;
-window.stepProgram = stepProgram;
-window.resetLevel = resetLevel;
-window.nextLevel = nextLevel;
-window.closeWinScreen = closeWinScreen;
-window.openEditor = openEditor;
-window.closeEditor = closeEditor;
-window.selectTool = selectTool;
-window.setDir = setDir;
-window.clearEditor = clearEditor;
-window.saveLevel = saveLevel;
-window.confirmResetProgress = confirmResetProgress;
-window.showCode = showCode;
-
-// ========== Start ==========
-loadCustomLevels(); rebuildLevels(); loadProgress();
-if (savedProgress.currentLevel >= levels.length) savedProgress.currentLevel = 0;
-loadLevel(savedProgress.currentLevel || 0);
-if (!localStorage.getItem(SAVE_KEY)) saveProgress();
-</script>
-</body>
-</html>
+┌──────────────────────────────────────┐
+│  ⭐ 0  |  🏆 1                       │
+│  [📖 الألبوم] [🛠️] [🗑️]             │
+├──────────────────────────────────────┤
+│  شريط الحيوانات                      │
+├──────────────────────────────────────┤
+│                                      │
+│  ┌────────────────────────────────┐  │
+│  │  🐰 → 🥕 (الشبكة)              │  │
+│  └────────────────────────────────┘  │
+│                                      │
+│  ┌────────────────────────────────┐  │
+│  │  📝 صندوق البرنامج              │  │
+│  └────────────────────────────────┘  │
+│                                      │
+│         ⬆️❓                         │
+│    ⬅️❓      ➡️❓                      │
+│         ⬇️❓                         │
+│                                      │
+│    🔁2  🔁3  🔁4  🦘                │
+│                                      │
+│  [▶️ شغّل] [👣 خطوة] [🔄 إعادة]      │
+│                                      │
+│  ⚡ السرعة  |  [➡️ التالي]           │
+└──────────────────────────────────────┘
